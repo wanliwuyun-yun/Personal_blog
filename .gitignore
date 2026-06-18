@@ -1,0 +1,28 @@
+# Java / Maven
+blog-backend/target/
+blog-backend/data/
+blog-backend/*.db
+data/
+*.db
+blog-backend/*.log
+blog-backend/upload/
+*.jar
+*.war
+
+# Node
+blog-frontend/node_modules/
+blog-frontend/.next/
+blog-frontend/out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Env
+.env.local
+.env*.local

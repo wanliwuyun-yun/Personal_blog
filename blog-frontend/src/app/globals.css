@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes marquee-vertical {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee var(--duration, 30s) linear infinite;
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical var(--duration, 30s) linear infinite;
+  }
+}
+
+:root {
+  --foreground: #e2e8f0;
+  --background: #0a0e1f;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* 自定义发光文字 */
+.text-gradient {
+  background: linear-gradient(135deg, #c0d8ff 0%, #8b5cf6 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #61DAFB 0%, #4ECDC4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 毛玻璃效果 */
+.glass {
+  background: rgba(30, 41, 72, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(192, 216, 255, 0.1);
+}
+
+.glass-hover:hover {
+  background: rgba(30, 41, 72, 0.6);
+  border-color: rgba(192, 216, 255, 0.3);
+  box-shadow: 0 0 15px rgba(192, 216, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0e1f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1e2948, #8b5cf6);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8b5cf6, #c0d8ff);
+}
+
+/* 文章内容样式 */
+.article-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+  color: #c0d8ff;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: #c0d8ff;
+  border-bottom: 1px solid rgba(192, 216, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.article-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+  color: #e2e8f0;
+}
+
+.article-content p {
+  margin: 0.75rem 0;
+  line-height: 1.8;
+  color: #cbd5e1;
+}
+
+.article-content ul,
+.article-content ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.article-content li {
+  margin: 0.4rem 0;
+  color: #cbd5e1;
+}
+
+.article-content code {
+  background: rgba(139, 92, 246, 0.15);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #e2e8f0;
+}
+
+.article-content pre {
+  background: rgba(10, 14, 31, 0.8);
+  border: 1px solid rgba(192, 216, 255, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.article-content pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.article-content blockquote {
+  border-left: 3px solid #8b5cf6;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.article-content a {
+  color: #61DAFB;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.article-content a:hover {
+  color: #c0d8ff;
+}
+
+.article-content img {
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.article-content th,
+.article-content td {
+  border: 1px solid rgba(192, 216, 255, 0.2);
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+
+.article-content th {
+  background: rgba(30, 41, 72, 0.5);
+  color: #c0d8ff;
+}
+
+/* 代码高亮主题覆盖 */
+.hljs {
+  background: transparent !important;
+  color: #cbd5e1 !important;
+}
+
+/* 加载动画 */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    rgba(30, 41, 72, 0.4) 25%,
+    rgba(192, 216, 255, 0.1) 50%,
+    rgba(30, 41, 72, 0.4) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}

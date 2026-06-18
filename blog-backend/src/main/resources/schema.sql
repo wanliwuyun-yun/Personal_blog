@@ -1,0 +1,34 @@
+-- 文章表
+CREATE TABLE IF NOT EXISTS article (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL COMMENT '文章标题',
+    summary VARCHAR(500) DEFAULT '' COMMENT '文章摘要',
+    content TEXT COMMENT '文章内容',
+    category_id BIGINT DEFAULT NULL COMMENT '分类ID',
+    tags VARCHAR(200) DEFAULT '' COMMENT '标签ID集合',
+    cover_image VARCHAR(500) DEFAULT NULL COMMENT '封面图',
+    view_count INT DEFAULT 0 COMMENT '阅读量',
+    is_top TINYINT(1) DEFAULT 0 COMMENT '是否置顶',
+    status INT DEFAULT 1 COMMENT '状态 0=草稿 1=发布',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted INT DEFAULT 0 COMMENT '逻辑删除 0=未删除'
+);
+
+-- 分类表
+CREATE TABLE IF NOT EXISTS category (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL COMMENT '分类名称',
+    description VARCHAR(200) DEFAULT '' COMMENT '分类描述',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    deleted INT DEFAULT 0 COMMENT '逻辑删除'
+);
+
+-- 标签表
+CREATE TABLE IF NOT EXISTS tag (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL COMMENT '标签名称',
+    color VARCHAR(20) DEFAULT '#4ECDC4' COMMENT '标签颜色',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    deleted INT DEFAULT 0 COMMENT '逻辑删除'
+);
