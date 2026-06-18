@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./blog-backend
+      dockerfile: Dockerfile
+    container_name: starblog-backend
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - JAVA_OPTS=-Xms256m -Xmx512m -XX:+UseG1GC
+    volumes:
+      - blog-data:/app/data
+      - blog-upload:/app/upload
+    restart: unless-stopped
+    networks:
+      - starblog-net
+
+  frontend:
+    build:
+      context: ./blog-frontend
+      dockerfile: Dockerfile
+    container_name: starblog-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://backend:8081
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - starblog-net
+
+networks:
+  starblog-net:
+    driver: bridge
+
+volumes:
+  blog-data:
+  blog-upload:

@@ -32,3 +32,15 @@ CREATE TABLE IF NOT EXISTS tag (
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     deleted INT DEFAULT 0 COMMENT '逻辑删除'
 );
+
+-- 评论表
+CREATE TABLE IF NOT EXISTS comment (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    article_id BIGINT NOT NULL COMMENT '文章ID',
+    nickname VARCHAR(50) NOT NULL COMMENT '昵称',
+    email VARCHAR(100) DEFAULT '' COMMENT '邮箱',
+    content TEXT NOT NULL COMMENT '评论内容',
+    status INT DEFAULT 0 COMMENT '状态 0=待审核 1=通过 -1=拒绝',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    deleted INT DEFAULT 0 COMMENT '逻辑删除'
+);

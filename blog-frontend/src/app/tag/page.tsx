@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import ArticleCard from "@/components/ArticleCard";
 import { articleApi, tagApi } from "@/lib/api";
 import { cn } from "@/lib/utils";

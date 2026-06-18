@@ -45,4 +45,7 @@ public class Article {
     @TableLogic
     @TableField("deleted")
     private Integer deleted;
+
+    @TableField(exist = false)
+    private String categoryName;
 }

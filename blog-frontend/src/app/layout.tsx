@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StarBackground from "@/components/StarBackground";
@@ -11,13 +11,19 @@ export const metadata: Metadata = {
   description: "一个充满科技感与星空浪漫的个人博客",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN" className="dark">
+    <html lang="zh-CN" className="dark font-sans">
       <body className={`${inter.className} min-h-screen text-gray-100`}>
         <StarBackground />
         <Navbar />

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { CategoryMarquee } from "@/components/TechMarquee";
 import { cn } from "@/lib/utils";
 

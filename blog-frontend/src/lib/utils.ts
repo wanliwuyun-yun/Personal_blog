@@ -1,29 +1,26 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
 export function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("zh-CN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  if (!dateStr) return "";
+  try {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("zh-CN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  } catch {
+    return dateStr.slice(0, 10);
+  }
 }
 
-export function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength) + "...";
-}
+const TAG_COLORS = ["#4ECDC4","#FF6B6B","#45B7D1","#96CEB4","#FFEAA7","#DDA0DD","#98D8C8","#F7DC6F","#BB8FCE","#85C1E9"];
 
-export function getTagColor(index: number): string {
-  const colors = [
-    "#FF6B6B", "#4ECDC4", "#61DAFB", "#FFD93D",
-    "#6C5CE7", "#A8E6CF", "#FF85A2", "#45B7D1",
-    "#F9CA24", "#686DE0", "#E056A0", "#5F27CD",
-  ];
-  return colors[index % colors.length];
+export function getTagColor(id: number): string {
+  return TAG_COLORS[id % TAG_COLORS.length];
 }

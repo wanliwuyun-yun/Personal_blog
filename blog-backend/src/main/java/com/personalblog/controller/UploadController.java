@@ -23,6 +23,10 @@ public class UploadController {
         }
 
         String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !originalFilename.contains(".")) {
+            return Result.error("无效的文件名");
+        }
+        
         String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
         String filename = UUID.randomUUID().toString() + ext;
 
@@ -33,9 +37,14 @@ public class UploadController {
 
         try {
             file.transferTo(dest);
-            return Result.success("/uploads/" + filename);
+            return Result.success("/api/upload/" + filename);
         } catch (IOException e) {
             return Result.error("上传失败: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/{filename}")
+    public Result<String> getFileUrl(@PathVariable String filename) {
+        return Result.success("/upload/" + filename);
     }
 }

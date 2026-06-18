@@ -1,43 +1,80 @@
 package com.personalblog.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private final DataSource dataSource;
+    private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
 
-    @Value("${spring.jpa.hibernate.ddl-auto:update}")
-    private String ddlAuto;
+    private final DataSource dataSource;
 
     public DataInitializer(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        // 使用 H2 时自动初始化数据
-        if (ddlAuto.equals("update")) {
-            try {
-                Resource schemaResource = new ClassPathResource("schema.sql");
-                if (schemaResource.exists()) {
-                    ScriptUtils.executeSqlScript(dataSource.getConnection(), schemaResource);
-                }
-                Resource dataResource = new ClassPathResource("data.sql");
-                if (dataResource.exists()) {
-                    ScriptUtils.executeSqlScript(dataSource.getConnection(), dataResource);
-                }
-            } catch (Exception e) {
-                // 表已存在时会报错，忽略即可
-                System.out.println("Data initialization skipped: " + e.getMessage());
+    public void run(String... args) {
+        try (Connection conn = dataSource.getConnection()) {
+            boolean tableExists = isTableExists(conn, "ARTICLE");
+
+            if (!tableExists) {
+                log.info("Tables not found, initializing schema...");
+                ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+                populator.addScript(new ClassPathResource("schema.sql"));
+                populator.setSeparator(";");
+                populator.execute(dataSource);
+                log.info("Schema initialized successfully");
+            } else {
+                log.info("Tables already exist, skipping schema initialization");
             }
+
+            if (isDatabaseEmpty(conn)) {
+                log.info("Database is empty, inserting seed data...");
+                ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+                populator.addScript(new ClassPathResource("data.sql"));
+                populator.setSeparator(";");
+                populator.execute(dataSource);
+                log.info("Seed data inserted successfully");
+            } else {
+                log.info("Database already has data, skipping seed data insertion");
+            }
+
+        } catch (Exception e) {
+            log.error("Data initialization failed", e);
         }
+    }
+
+    private boolean isTableExists(Connection conn, String tableName) {
+        try {
+            DatabaseMetaData meta = conn.getMetaData();
+            try (ResultSet rs = meta.getTables(null, null, tableName, new String[]{"TABLE"})) {
+                return rs.next();
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isDatabaseEmpty(Connection conn) {
+        try (Statement stmt = conn.createStatement()) {
+            var rs = stmt.executeQuery("SELECT COUNT(*) FROM article");
+            if (rs.next()) {
+                return rs.getInt(1) == 0;
+            }
+        } catch (Exception ignored) {
+        }
+        return true;
     }
 }

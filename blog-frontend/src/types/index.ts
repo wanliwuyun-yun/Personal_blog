@@ -45,6 +45,16 @@ export interface ApiResult<T> {
   data: T;
 }
 
+export interface BlogComment {
+  id: number;
+  articleId: number;
+  nickname: string;
+  email: string;
+  content: string;
+  status: number;
+  createTime: string;
+}
+
 export interface MarqueeItem {
   name: string;
   desc: string;

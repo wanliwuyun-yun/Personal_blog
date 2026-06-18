@@ -24,8 +24,9 @@ public class ArticleController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) Long tagId,
-            @RequestParam(required = false) String keyword) {
-        IPage<Article> articlePage = articleService.getArticlePage(page, size, categoryId, tagId, keyword);
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Integer status) {
+        IPage<Article> articlePage = articleService.getArticlePage(page, size, categoryId, tagId, keyword, status);
         return Result.success(PageResult.from(articlePage));
     }
 
@@ -53,7 +54,9 @@ public class ArticleController {
         article.setCreateTime(LocalDateTime.now());
         article.setUpdateTime(LocalDateTime.now());
         article.setViewCount(0);
-        article.setStatus(1);
+        if (article.getStatus() == null) {
+            article.setStatus(1);
+        }
         articleService.save(article);
         return Result.success("发布成功", article);
     }

@@ -7,7 +7,7 @@ import com.personalblog.entity.Article;
 import java.util.List;
 
 public interface ArticleService extends IService<Article> {
-    IPage<Article> getArticlePage(int page, int size, Long categoryId, Long tagId, String keyword);
+    IPage<Article> getArticlePage(int page, int size, Long categoryId, Long tagId, String keyword, Integer status);
 
     Article getArticleDetail(Long id);
 
@@ -17,5 +17,5 @@ public interface ArticleService extends IService<Article> {
 
     List<Article> getArticlesByCategory(Long categoryId);
 
-    List<Article> getArticlesByTag(String tagName);
+    List<Article> getArticlesByTag(Long tagId);
 }

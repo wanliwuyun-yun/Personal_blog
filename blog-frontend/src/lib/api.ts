@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiResult, Article, Category, PageResult, Tag } from "@/types";
+import type { ApiResult, Article, BlogComment, Category, PageResult, Tag } from "@/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
@@ -28,6 +28,7 @@ export const articleApi = {
     categoryId?: number;
     tagId?: number;
     keyword?: string;
+    status?: number;
   }): Promise<ApiResult<PageResult<Article>>> {
     return api.get("/article/list", { params });
   },
@@ -100,6 +101,31 @@ export const tagApi = {
 
   delete(id: number): Promise<ApiResult<null>> {
     return api.delete(`/tag/${id}`);
+  },
+};
+
+// ===== 文件上传 API =====
+export const uploadApi = {
+  image(file: File): Promise<ApiResult<string>> {
+    const formData = new FormData();
+    formData.append("file", file);
+    return api.post("/upload/image", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
+};
+
+export const commentApi = {
+  getByArticle(articleId: number): Promise<ApiResult<BlogComment[]>> {
+    return api.get(`/comment/article/${articleId}`);
+  },
+
+  add(comment: { articleId: number; nickname: string; email?: string; content: string }): Promise<ApiResult<BlogComment>> {
+    return api.post("/comment/add", comment);
+  },
+
+  delete(id: number): Promise<ApiResult<null>> {
+    return api.delete(`/comment/${id}`);
   },
 };
 
