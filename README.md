@@ -1,107 +1,4 @@
-深度思考
-```用户想知道从哪个步骤开始实施，我需要根据之前的讨论（版本保护、开发流程）整理出一个清晰的第一天的行动计划清单。
-```
-好的！让我帮你理清**从现在开始的实际行动步骤**。
-
-## 🚀 你现在应该做的
-
-### **第一阶段：准备上传到GitHub（今天）**
-
-这是最紧急的，先把代码安全地托管到GitHub。
-
----
-
-## 📋 具体执行清单
-
-### **Step 1：检查并加固.gitignore（5分钟）**
-
-先看看你当前的 `.gitignore` 是否完善：
-
-```gitignore
-# Java / Maven
-blog-backend/target/
-blog-backend/data/
-blog-backend/*.db
-blog-backend/*.log
-blog-backend/upload/
-data/
-*.db
-*.jar
-*.war
-
-# Node
-blog-frontend/node_modules/
-blog-frontend/.next/
-blog-frontend/out/
-blog-frontend/.env
-
-# IDE
-.idea/
-*.iml
-.vscode/
-*.swp
-*~
-
-# OS
-Thumbs.db
-.DS_Store
-
-# Env (所有环境变量文件)
-.env
-.env.local
-.env.development
-.env.production
-.env*.local
-.env.*.local
-
-# 数据库文件
-*.trace.db
-*.mv.db
-H2Backup/
-
-# 日志文件
-logs/
-*.log
-
-# 临时文件
-tmp/
-temp/
-```
-
-
-**如果和上面一样，说明已经OK，继续下一步。**
-
----
-
-### **Step 2：清理本地数据文件（2分钟）**
-
-```powershell
-# 在PowerShell执行
-cd D:\Personal_blog
-
-# 删除数据库文件（不会删源码，安全）
-Remove-Item -Recurse -Force blog-backend\data\* -ErrorAction SilentlyContinue
-Remove-Item -Recurse -Force data\* -ErrorAction SilentlyContinue
-
-# 删除上传文件（图片等）
-Remove-Item -Recurse -Force blog-backend\upload\* -ErrorAction SilentlyContinue
-
-# 确认删除成功
-dir blog-backend\data
-dir blog-backend\upload
-# 应该显示目录为空或不存在
-```
-
-
----
-
-### **Step 3：创建README.md（10分钟）**
-
-这是你的项目门面，让更多人看懂：
-
-```markdown
-NEW_FILE_CODE
-# 📝 StarBlog - 个人博客系统
+<img width="1274" height="700" alt="image" src="https://github.com/user-attachments/assets/6a392183-3ca6-48fc-820d-2ee5a43650f6" /># 📝 StarBlog - 个人博客系统
 
 基于 Spring Boot + Next.js 的前后端分离个人博客系统，支持 Docker 一键部署和 Vercel 上线。
 
@@ -257,6 +154,24 @@ vercel --prod
 3. 选择 `blog-backend` 作为后端服务
 4. 自动部署
 
+## 📸 截图
+![首页截图]
+<img width="1274" height="700" alt="image" src="https://github.com/user-attachments/assets/cdff2c1a-4a99-4c50-90fd-598a9b40b3e9" />
+![后端管理截图]
+<img width="1271" height="704" alt="image" src="https://github.com/user-attachments/assets/080c4785-31d1-475f-87e1-a4b15a6728fa" />
+
+## 🛠️ 开发工具推荐
+
+- **IDEA**: IntelliJ IDEA Ultimate (后端开发)
+- **VS Code**: 前端开发推荐
+- **Postman**: API测试
+- **Docker Desktop**: 容器管理
+
+## 📄 License
+
+MIT License
+
+<p align="center">如果这个项目对你有帮助，请给一个 ⭐️ Star！</p>
 
 
 
