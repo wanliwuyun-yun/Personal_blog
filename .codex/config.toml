@@ -1,0 +1,22 @@
+[mcp_servers.filesystem]
+command = "npx"
+args = [
+    "-y",
+    "@modelcontextprotocol/server-filesystem",
+]
+
+[mcp_servers.github]
+command = "npx"
+args = [
+    "-y",
+    "@modelcontextprotocol/server-github",
+]
+
+[mcp_servers.ts-lsp]
+command = "npx"
+args = [
+    "-y",
+    "typescript-lsp-mcp",
+    "--root",
+    'D:\Personal_blog',
+]
