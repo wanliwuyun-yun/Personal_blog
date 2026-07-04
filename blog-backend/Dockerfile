@@ -15,12 +15,10 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 COPY --from=builder /build/target/blog-backend-1.0.0.jar app.jar
-
-EXPOSE 8081
-
+#EXPOSE 8081
 VOLUME ["/app/data", "/app/upload"]
 
 ENV JAVA_OPTS="-Xms256m -Xmx512m -XX:+UseG1GC"
-ENV SERVER_PORT=8081
-
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
+# 删掉写死端口的环境变量
+# ENV SERVER_PORT=8081
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar --server.port=$PORT"]

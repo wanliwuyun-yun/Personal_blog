@@ -78,7 +78,8 @@
       "Read(//d/Java/bin//**)",
       "Bash(JAVA_HOME=\"D:\\\\Java\" ./mvnw compile -q)",
       "mcp__filesystem__write_file",
-      "Bash(docker exec starblog-frontend *)"
+      "Bash(docker exec starblog-frontend *)",
+      "Bash(git commit -m 'v0.2: 功能完善 + 启动崩溃与部署连通性修复 *)"
     ]
   }
 }
