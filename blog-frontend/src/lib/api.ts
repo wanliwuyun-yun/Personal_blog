@@ -1,10 +1,10 @@
 import axios from "axios";
 import type { ApiResult, Article, BlogComment, Category, PageResult, Tag } from "@/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${BASE_URL}/api`,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
