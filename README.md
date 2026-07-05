@@ -154,6 +154,9 @@ vercel --prod
 3. 选择 `blog-backend` 作为后端服务
 4. 自动部署
 
+## 修改绑定邮箱
+echo "fix git author email" >> README.md
+
 ## 📸 截图
 ![首页截图]
 <img width="1274" height="700" alt="image" src="https://github.com/user-attachments/assets/cdff2c1a-4a99-4c50-90fd-598a9b40b3e9" />
