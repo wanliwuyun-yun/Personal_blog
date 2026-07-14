@@ -59,9 +59,16 @@ public class DataInitializer implements CommandLineRunner {
     private boolean isTableExists(Connection conn, String tableName) {
         try {
             DatabaseMetaData meta = conn.getMetaData();
-            try (ResultSet rs = meta.getTables(null, null, tableName, new String[]{"TABLE"})) {
-                return rs.next();
+            // PostgreSQL 表名通常是小写，尝试多种大小写组合
+            String[] namesToTry = {tableName, tableName.toLowerCase(), tableName.toUpperCase()};
+            for (String name : namesToTry) {
+                try (ResultSet rs = meta.getTables(null, null, name, new String[]{"TABLE"})) {
+                    if (rs.next()) {
+                        return true;
+                    }
+                }
             }
+            return false;
         } catch (Exception e) {
             return false;
         }

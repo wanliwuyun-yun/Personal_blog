@@ -6,14 +6,13 @@ spring:
   application:
     name: personal-blog
   datasource:
-    url: jdbc:mysql://your-render-mysql-host:3306/blog_db?useSSL=true&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: Cathy813@
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   h2:
     console:
-      enabled: true
-      path: /h2-console
+      enabled: false
   servlet:
     multipart:
       enabled: true

@@ -16,6 +16,10 @@ INSERT INTO tag (id, name, color, create_time, deleted) VALUES
 (7, '生活', '#FF85A2', '2024-01-01 00:00:00', 0),
 (8, '学习', '#45B7D1', '2024-01-01 00:00:00', 0);
 
+-- 重置序列（PostgreSQL 需要）
+SELECT setval('category_id_seq', (SELECT MAX(id) FROM category));
+SELECT setval('tag_id_seq', (SELECT MAX(id) FROM tag));
+
 -- 初始化文章
 INSERT INTO article (id, title, summary, content, category_id, tags, cover_image, view_count, is_top, status, create_time, update_time, deleted) VALUES
 (1, 'SpringBoot 3.x 入门指南', '详细介绍SpringBoot 3.x的核心特性和入门使用方法，适合初学者快速上手。',
@@ -58,7 +62,7 @@ public class HelloController {
 ## 总结
 
 SpringBoot 3.x 带来了很多新特性，如虚拟线程支持、GraalVM 原生镜像等，是 Java 开发的首选框架。
-', 1, '1,2', NULL, 128, 1, 1, '2024-01-15 10:00:00', '2024-06-01 10:00:00', 0),
+', 1, '1,2', NULL, 128, TRUE, 1, '2024-01-15 10:00:00', '2024-06-01 10:00:00', 0),
 
 (2, 'React 18 新特性详解', '深入探讨 React 18 带来的并发模式、自动批处理等核心新特性。',
 '# React 18 新特性详解
@@ -95,7 +99,7 @@ startTransition(() => {
 ## 总结
 
 React 18 带来的并发特性使得 UI 渲染更加流畅。
-', 1, '3,4', NULL, 85, 0, 1, '2024-02-20 14:30:00', '2024-05-15 10:00:00', 0),
+', 1, '3,4', NULL, 85, FALSE, 1, '2024-02-20 14:30:00', '2024-05-15 10:00:00', 0),
 
 (3, '我的2024年度总结', '回顾2024年的学习、工作和生活，展望2025年的规划。',
 '# 我的2024年度总结
@@ -122,7 +126,7 @@ React 18 带来的并发特性使得 UI 渲染更加流畅。
 - 深入学习云原生技术
 - 打造自己的技术品牌
 - 坚持运动，保持健康
-', 2, '7,8', NULL, 256, 1, 1, '2024-12-31 23:59:00', '2024-12-31 23:59:00', 0),
+', 2, '7,8', NULL, 256, TRUE, 1, '2024-12-31 23:59:00', '2024-12-31 23:59:00', 0),
 
 (4, 'MySQL 性能优化实战', '从索引优化、SQL优化、架构设计等角度分享MySQL性能调优经验。',
 '# MySQL 性能优化实战
@@ -160,7 +164,7 @@ WHERE EXISTS (SELECT 1 FROM users u WHERE u.id = o.user_id);
 ## 总结
 
 性能优化是一个持续的过程，需要不断监控和调整。
-', 1, '1,5', NULL, 192, 0, 1, '2024-03-10 09:00:00', '2024-04-20 10:00:00', 0),
+', 1, '1,5', NULL, 192, FALSE, 1, '2024-03-10 09:00:00', '2024-04-20 10:00:00', 0),
 
 (5, 'Next.js 14 服务端组件深度解析', '全面解析 Next.js 14 的服务端组件、客户端组件和流式渲染。',
 '# Next.js 14 服务端组件深度解析
@@ -194,7 +198,7 @@ async function BlogList() {
 ## 总结
 
 Next.js 14 的服务端组件大幅提升了应用性能和开发体验。
-', 1, '3,4', NULL, 67, 0, 1, '2024-04-05 16:00:00', '2024-05-10 10:00:00', 0),
+', 1, '3,4', NULL, 67, FALSE, 1, '2024-04-05 16:00:00', '2024-05-10 10:00:00', 0),
 
 (6, 'Docker 容器化部署指南', '从零开始学习 Docker 容器化技术，实现应用的一键部署。',
 '# Docker 容器化部署指南
@@ -228,13 +232,16 @@ services:
     build: .
     ports:
       - "8080:8080"
-  mysql:
-    image: mysql:8
+  postgres:
+    image: postgres:15
     environment:
-      MYSQL_ROOT_PASSWORD: root123
+      POSTGRES_PASSWORD: root123
 ```
 
 ## 总结
 
 Docker 让应用的部署变得简单、可靠、可重复。
-', 1, '6', NULL, 143, 0, 1, '2024-05-20 11:00:00', '2024-06-01 10:00:00', 0);
+', 1, '6', NULL, 143, FALSE, 1, '2024-05-20 11:00:00', '2024-06-01 10:00:00', 0);
+
+-- 重置序列（PostgreSQL 需要）
+SELECT setval('article_id_seq', (SELECT MAX(id) FROM article));
